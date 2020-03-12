@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load global_functions %}
+
+{% block head_title %}
+    <title>Training - {{ course.title }}</title>
+{% endblock %}
+
+{% block meta_description_keywords %}
+        <meta name="description" content="Training Detail - {{ course.title }}">
+        <meta name="keywords" content="Mark,Wilson,HTML,CSS,JavaScript/JQuery,Training,Course,{{ course.title }}">
+{% endblock %}
+
+{% block styles %}
+
+    <!-- Custom App Styles -->
+    <link href="{% static "Training/css/style.css" %}" rel="stylesheet">
+    <link href="{% static "Training/css/responsive.css" %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block main %}
+        
+
+    <!-- single training section start -->
+    <section class="single-training section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <img class="img-pm" src="{% static 'Training/img/'|addstr:course.img %}" alt="Training Course Image">
+                </div>
+                <div class="col-lg-6">
+                    <div class="training-meta-wrapper">
+                        <h4 class="sub-tit">Course Information </h4>
+                        <ul class="single-training-meta">
+                            <li>
+                                <i class="fa fa-graduation-cap"></i><span>Course:</span>{{ course.title }}
+                            </li>
+                            <li>
+                                <i class="fa fa-calendar"></i><span>Date:</span>{{ formatedDate }}
+                            </li>
+                            <li>
+                                <i class="fa fa-users"></i><span>Group:</span>{{ group.title }}
+                            </li>
+                            <li>
+                                <!-- Course is compulsory for Training -->
+                                <i class="fa fa-link"></i><span>Course: </span><a href="{{ course.link_href }}">{{ course.link_text }}</a>
+                            </li>
+                            {% if course.code_text|linkValid:course.link_href %}
+                            <li>
+                                <!-- Code is not compulsory for Training -->
+                                <i class="fa fa-link"></i><span>Code: </span><a href="{{ course.code_href }}">{{ course.code_text }}</a>
+                            </li>
+                        </ul>
+                            {% else %}
+                            {# Use ul (above) if adding link, else ul br to padd out the missing section a bit. #}
+                        </ul><Br> 
+                            {% endif %}
+                        <div class="training-info">
+                            <h4 class="sub-tit">A Short Brief</h4>
+                            <p>
+                                {{ course.short_text }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="single-training-description">
+                        <h4 class="sub-tit">Course Details</h4>
+                        
+                        {{ courseHTML }}
+                        
+                    </div>
+                </div>
+            </div>
+            <!--/row-->
+            <div class="row">
+                <div class="col-6 text-left">
+                    {% if prev is not None %}
+                        <a href="{% url 'training_detail' prev.id %}" class="training-link"><i class="fa fa-angle-left"></i> previous</a>
+                    {% endif %}
+                </div>
+                <div class="col-6 text-right">
+                    {% if next is not None %}
+                        <a href="{% url 'training_detail' next.id %}" class="training-link">next <i class="fa fa-angle-right"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- single training section end -->
+
+
+{% endblock main %}
+
+{% block base_scripts %}
+
+{% endblock %}

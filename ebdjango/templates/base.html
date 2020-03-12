@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    {% load static %}
+
+    {% load training_menus %}
+    {% load project_menus %}
+   
+
+    <head>
+
+        {% block head_title %}
+        {% endblock %}
+
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- descriptive meta tags -->
+        {% block meta_description_keywords %}
+        {% endblock %}
+        <meta name="author" content="M Wilson">
+
+        <!-- favicon -->
+        <link rel="shortcut icon" href="{% static 'ebdjango/img/favicon.ico' type='image/x-icon' %}">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <!-- Bootstrap js -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <!-- Font Awesome -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700,900" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+        
+        <!-- Custom Main Project Styles -->
+        <link href="{% static "ebdjango/css/style.css" %}" rel="stylesheet">
+        <link href="{% static "ebdjango/css/responsive.css" %}" rel="stylesheet">
+
+        {% block styles %}{% endblock %}
+
+    </head>
+
+   <body>
+
+        <!-- Preloader -->
+        <div class="loader-mask">
+            <div class="loader">
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+
+
+        <!-- ====== start header ======  -->
+        <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-blackfade">
+            <div class="container-fluid ml-3 mr-3">
+                <!-- navbar-brand -->
+                <a class="navbar-brand pt-0 logo" href="{% url 'aboutme' %}#idAboutIndex">
+                    <img class="logo-1" src="{% static 'ebdjango/img/logo-1.png' %}" alt="MJW Logo Image">
+                </a>
+                <!-- Toggler/collapsibe Button -->
+                <button class="navbar-toggler" type="button" aria-label="toggle navbar" data-toggle="collapse" data-target="#menuNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- navbar-nav -->
+                <div class="collapse navbar-collapse" id="menuNavbar">
+                    <ul class="navbar-nav ml-auto mr-auto">
+                        
+                        <li class="nav-item"><a id="idAboutLink" class="nav-link" href="{% url 'aboutme' %}#idAboutIndex">HOME</a></li>
+                        <li class="nav-item"><a id="idResumeLink" class="nav-link" href="{% url 'aboutme' %}#idResumeIndex">RESUME</a></li>
+                        
+                        <li  class="nav-item dropdown">
+                            <a class="nav-link inline-block clearfix" href="#" id="navbarTrainingDrop" data-toggle="dropdown">TRAINING
+                                <i class="fa fa-angle-down float-right"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-dark bg-blackfade">
+                                {% get_all_training_groups as all_training_groups %}
+                                {% for g in all_training_groups %}
+                                    <a class="dropdown-item" href="{% url 'training_list' g.id %}">{{ g.title }}</a>
+                                {% endfor %}
+
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link inline-block clearfix" href="#" id="navbarLanguageDrop" data-toggle="dropdown">PROJECTS
+                                <i class="fa fa-angle-down float-right"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-dark bg-blackfade">
+                                {% get_all_language_groups as all_language_groups %}
+                                {% for l in all_language_groups %}
+                                    <a class="dropdown-item" href="{% url 'project_list' l.id %}">{{ l.title }}</a>
+                                {% endfor %}
+                            </div>
+                        </li>
+                        
+                        <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">CONTACT</a></li>
+                        
+                        <li class="nav-item d-md-none"><a class="nav-link" href="{% url 'search' %}"><span class="fa fa-search">&nbsp;SEARCH</span></a></li>
+                    </ul>
+                </div>
+                <!-- Search -->
+                <a class="d-none d-md-block d-lg-block d-xl-block menu-color" href="{% url 'search' %}"><span class="fa fa-search"></span>&nbsp;SEARCH</a>
+            </div>
+        </nav>
+        <!-- ====== end header ======  -->
+
+        <div class="loader">
+
+        </div>
+    
+        <main>
+            <!--Main Block where the data used to go-->
+            {% block main %}{% endblock %}
+            <!---------------------------------------->
+        </main>
+
+        <!-- ======./ Start Footer ======  -->
+        <footer class = "bg-blackfade" id="footer">
+            <div class="center-list">
+                <ul class="footer-info">
+                    <li></li>
+                    <li><h3>For Freelance Work</h3></li>
+                    <li><a href="tel:+44-7800-719053" title="press to dial (phone compatible only)"><i class="fa fa-phone"></i> +44 (0)7800 719053</a></li>
+                    <li><a href="mailto:mark_john_wilson@yahoo.co.uk"><i class="fa fa-envelope"></i> mark_john_wilson@yahoo.co.uk</a></li>
+                    <li></li>
+                </ul>
+            </div>
+        </footer>
+        <!-- ======./ Footer ======  -->
+
+        <!-- JavaScript -->
+
+        <script src="{% static "ebdjango/js/custom.js" %}"></script>
+
+        {% block base_scripts %}{% endblock %}
+
+    </body>
+</html>

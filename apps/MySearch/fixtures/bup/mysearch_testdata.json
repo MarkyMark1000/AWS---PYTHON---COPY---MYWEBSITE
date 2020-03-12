@@ -1,0 +1,341 @@
+[
+{
+    "model": "Training.traininggroup",
+    "pk": 1,
+    "fields": {
+        "title": "AWS"
+    }
+},
+{
+    "model": "Training.traininggroup",
+    "pk": 2,
+    "fields": {
+        "title": "Google Cloud"
+    }
+},
+{
+    "model": "Training.traininggroup",
+    "pk": 3,
+    "fields": {
+        "title": "VBA"
+    }
+},
+{
+    "model": "Training.trainingcourse",
+    "pk": 1,
+    "fields": {
+        "title": "CLOUDFORMATION",
+        "img": "AWSCloudFormation1024x700.jpg",
+        "date": "2020-01-28",
+        "link_text": "Udemy",
+        "link_href": "https://www.udemy.com/course/aws-cloudformation-master-class/",
+        "code_text": "",
+        "code_href": "",
+        "short_text": "A more detailed course on cloudformation",
+        "main_text": "<UL class=\"list-style-disc\">\r\n<LI class=\"list-style-disc\"><B>AWS CloudFormation Introduction:</B> Learn about high level concepts on CloudFormation. Learn why AWS CloudFormation is a great choice when it comes to deploying your AWS Infrastructure.</LI>\r\n\r\n<LI><B>CloudFormation First Hands:</B> Write your first AWS CloudFormation template to simply create an AWS S3 bucket. You will learn about YAML through a practical exercise. </LI>\r\n\r\n<LI><B>CloudFormation Parameters:</B> Learn about Parameters. You will encounter all the possible options for this must-know building block of CloudFormation.</LI>\r\n\r\n<LI><B>CloudFormation Resources:</B> Learn the core of CloudFormation, resources. Understanding how to read the AWS CloudFormation documentation to start using any resource.</LI>\r\n\r\n<LI><B>CloudFormation Mappings:</B> Learn about Mappings. This section will show you how to use mappings to infer pre-defined values based on the AWS Region or the Environment Type (dev, test, prod).</LI>\r\n\r\n<LI><B>CloudFormation Outputs:</B> Learn how to use Outputs to efficiently display important information about the result of your CloudFormation templates. Learn how to reference Outputs to start performing some Cross Stack templates.</LI>\r\n\r\n<LI><B>CloudFormation Conditions:</B> Learn how to use Conditions to control which resources are created from within your CloudFormation templates. This is very useful when differentiating between AWS Environments</LI>\r\n\r\n<LI><B>CloudFormation Metadata:</B> Learn how Metadata can be used to enhance the usability of your CloudFormation template</LI>\r\n\r\n<LI><B>CloudFormation Init and EC2 User Data:</B> Learn about the extremely powerful EC2 User Data and CloudFormation Init scripts, in order to leverage Metadata to bootstrap your EC2 instances in a perfect way.</LI>\r\n\r\n<LI><B>CloudFormation Drift:</B> Learn how to ensure your resources are configured just like your CloudFormation template</LI>\r\n\r\n<LI><B>CloudFormation Nested Stacks:</B> Create re-usable pieces of code across your CloudFormation stacks</LI>\r\n\r\n<LI><B>Advanced Concepts:</B> Push the boundaries of CloudFormation with these advanced concepts. Learn about Troposphere, Deletion Policy, and more!</LI>\r\n</UL>",
+        "group": 1
+    }
+},
+{
+    "model": "MyProjects.projectlanguage",
+    "pk": 2,
+    "fields": {
+        "title": "PYTHON"
+    }
+},
+{
+    "model": "MyProjects.projectlanguage",
+    "pk": 3,
+    "fields": {
+        "title": "MQL"
+    }
+},
+{
+    "model": "MyProjects.projectlanguage",
+    "pk": 4,
+    "fields": {
+        "title": "VBA"
+    }
+},
+{
+    "model": "MyProjects.myproject",
+    "pk": 1,
+    "fields": {
+        "title": "Test Python Project",
+        "img": "ThisWebsite1024x700.jpg",
+        "date": "2020-01-28",
+        "link_text": "",
+        "link_href": "",
+        "code_text": "blah",
+        "code_href": "#",
+        "short_text": "my short description",
+        "main_text": "main project description ...",
+        "language": 2
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$120000$BL7p7MgxUQJM$RIDMaW+plimf3X20JiXmYkorIlWlDc4qYOAbxqCWccw=",
+        "last_login": "2020-02-05T09:16:14.821Z",
+        "is_superuser": true,
+        "username": "mark",
+        "first_name": "",
+        "last_name": "",
+        "email": "mark_john_wilson@yahoo.co.uk",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2020-01-27T14:28:25.397Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 1,
+    "fields": {
+        "action_time": "2020-01-27T14:29:03.035Z",
+        "user": 1,
+        "content_type": 1,
+        "object_id": "1",
+        "object_repr": "AWS",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 2,
+    "fields": {
+        "action_time": "2020-01-27T14:29:09.567Z",
+        "user": 1,
+        "content_type": 1,
+        "object_id": "2",
+        "object_repr": "Google Cloud",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 3,
+    "fields": {
+        "action_time": "2020-01-27T14:29:13.500Z",
+        "user": 1,
+        "content_type": 1,
+        "object_id": "3",
+        "object_repr": "VBA",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 4,
+    "fields": {
+        "action_time": "2020-01-27T14:30:28.180Z",
+        "user": 1,
+        "content_type": 2,
+        "object_id": "1",
+        "object_repr": "CLOUDFORMATION",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 5,
+    "fields": {
+        "action_time": "2020-01-27T20:06:20.008Z",
+        "user": 1,
+        "content_type": 10,
+        "object_id": "1",
+        "object_repr": "Python",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 6,
+    "fields": {
+        "action_time": "2020-01-27T20:06:42.838Z",
+        "user": 1,
+        "content_type": 10,
+        "object_id": "1",
+        "object_repr": "Python",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 7,
+    "fields": {
+        "action_time": "2020-01-27T20:06:50.860Z",
+        "user": 1,
+        "content_type": 10,
+        "object_id": "2",
+        "object_repr": "PYTHON",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 8,
+    "fields": {
+        "action_time": "2020-01-27T20:06:54.983Z",
+        "user": 1,
+        "content_type": 10,
+        "object_id": "3",
+        "object_repr": "MQL",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 9,
+    "fields": {
+        "action_time": "2020-01-27T20:06:58.219Z",
+        "user": 1,
+        "content_type": 10,
+        "object_id": "4",
+        "object_repr": "VBA",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 10,
+    "fields": {
+        "action_time": "2020-01-28T09:00:51.069Z",
+        "user": 1,
+        "content_type": 9,
+        "object_id": "1",
+        "object_repr": "Test Python Project",
+        "action_flag": 1,
+        "change_message": "[{\"added\": {}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 11,
+    "fields": {
+        "action_time": "2020-01-28T09:44:00.553Z",
+        "user": 1,
+        "content_type": 9,
+        "object_id": "1",
+        "object_repr": "Test Python Project",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"img\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 12,
+    "fields": {
+        "action_time": "2020-01-28T19:26:46.968Z",
+        "user": 1,
+        "content_type": 9,
+        "object_id": "1",
+        "object_repr": "Test Python Project",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"link_text\", \"link_href\", \"short_text\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 13,
+    "fields": {
+        "action_time": "2020-01-28T19:27:10.073Z",
+        "user": 1,
+        "content_type": 2,
+        "object_id": "1",
+        "object_repr": "CLOUDFORMATION",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"link_text\", \"link_href\", \"short_text\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 14,
+    "fields": {
+        "action_time": "2020-02-01T21:54:27.228Z",
+        "user": 1,
+        "content_type": 2,
+        "object_id": "1",
+        "object_repr": "CLOUDFORMATION",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"link_text\", \"link_href\", \"short_text\", \"main_text\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 15,
+    "fields": {
+        "action_time": "2020-02-01T21:58:33.123Z",
+        "user": 1,
+        "content_type": 2,
+        "object_id": "1",
+        "object_repr": "CLOUDFORMATION",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"main_text\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 16,
+    "fields": {
+        "action_time": "2020-02-04T20:59:39.395Z",
+        "user": 1,
+        "content_type": 9,
+        "object_id": "1",
+        "object_repr": "Test Python Project",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"code_text\", \"code_href\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 17,
+    "fields": {
+        "action_time": "2020-02-04T21:07:37.847Z",
+        "user": 1,
+        "content_type": 2,
+        "object_id": "1",
+        "object_repr": "CLOUDFORMATION",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"code_text\", \"code_href\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 18,
+    "fields": {
+        "action_time": "2020-02-05T09:14:36.468Z",
+        "user": 1,
+        "content_type": 2,
+        "object_id": "1",
+        "object_repr": "CLOUDFORMATION",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"code_text\", \"code_href\"]}}]"
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 19,
+    "fields": {
+        "action_time": "2020-02-05T09:16:28.784Z",
+        "user": 1,
+        "content_type": 9,
+        "object_id": "1",
+        "object_repr": "Test Python Project",
+        "action_flag": 2,
+        "change_message": "[{\"changed\": {\"fields\": [\"link_text\", \"link_href\"]}}]"
+    }
+}
+]

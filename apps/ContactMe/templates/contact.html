@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block head_title %}
+    <title>Contact Mark Wilson</title>
+{% endblock %}
+
+{% block meta_description_keywords %}
+        <meta name="description" content="Contact Page for Mark Wilson">
+        <meta name="keywords" content="Mark,Wilson,HTML,CSS,JavaScript/JQuery,Home,Contact,ContactMe">
+{% endblock %}
+
+{% block styles %}
+
+    <!-- Custom App Styles -->
+    <link href="{% static "ContactMe/css/style.css" %}" rel="stylesheet">
+    <link href="{% static "ContactMe/css/responsive.css" %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block main %}
+
+    <!-- ====== Start Contact ======  -->
+    <section class="section-padding"  id="contact">
+
+        <!-- Section Title -->
+        <h1 class="section-title">Contact Me</h1>
+
+        <div class="container">
+            <!-- contact form -->
+            <div class="contact-box">
+                <form id="contact-form" method="post" action="{% url 'contact' %}">
+                    <!-- https://docs.djangoproject.com/en/3.0/ref/csrf/ -->
+                    {% csrf_token %}
+                    <div class="messages"></div>
+                    <div class="controls">
+                        <div class="row">
+                            <div class="col-lg-6 form-group">
+                                {{ form.form_name }}
+                            </div>
+                            <div class="col-lg-6 form-group">
+                                {{ form.form_email }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 form-group">
+                                {{ form.form_subject }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-lg-12">
+                                {{ form.form_message }}
+                            </div>
+                            <div class="col-lg-12">
+                                <input type="submit" class="btn btn-down-contact" value="Send message">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- ./ Container -->
+    </section>
+    <!-- ======./ Contact ======  -->
+
+{% endblock %}
+
+{% block base_scripts %}
+
+{% endblock %}

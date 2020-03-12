@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block head_title %}
+    <title>Success contacting Mark Wilson</title>
+{% endblock %}
+
+{% block meta_description_keywords %}
+        <meta name="description" content="Successful contact page for Mark Wilson">
+        <meta name="keywords" content="Mark,Wilson,HTML,CSS,JavaScript/JQuery,Home,Success,Contact,ContactMe">
+{% endblock %}
+
+{% block styles %}
+
+    <!-- Custom App Styles -->
+    <link href="{% static "ContactMe/css/style.css" %}" rel="stylesheet">
+    <link href="{% static "ContactMe/css/responsive.css" %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block main %}
+
+
+    <!-- ====== Start Contact ======  -->
+    <section class="section-padding"  id="success">
+
+        <!-- Section Title -->
+        <h1 class="section-title">Thank you</h1>
+
+        <div class="container">
+            <div class="row success-content">
+                I appreciate you contacting me. &nbsp;While I do my best to answer your queries 
+                quickly, it may take some time for you to receive a response. &nbsp;Thanks in advance for 
+                your patience. &nbsp;Have a great day!
+            </div>
+        </div>
+        <!-- ./ Container -->
+    </section>
+    <!-- ======./ Contact ======  -->
+
+{% endblock %}
+
+{% block base_scripts %}
+
+{% endblock %}

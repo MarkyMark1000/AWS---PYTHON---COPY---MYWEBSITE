@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load global_functions %}
+
+{% block head_title %}
+    <title>Search Page</title>
+{% endblock %}
+
+{% block meta_description_keywords %}
+        <meta name="description" content="Mark Wilson Search Page">
+        <meta name="keywords" content="Mark,Wilson,HTML,CSS,JavaScript/JQuery,Search">
+{% endblock %}
+
+{% block styles %}
+
+    <!-- Custom App Styles -->
+    <link href="{% static "MySearch/css/style.css" %}" rel="stylesheet">
+    <link href="{% static "MySearch/css/responsive.css" %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block main %}
+
+    <!-- ====== Start Search ======  -->
+    <section class="section-padding"  id="search">
+
+        <!-- Section Title -->
+        <h1 class="section-title">Search</h1>
+
+        <div class="container">
+            <!-- contact form -->
+            <div class="search-box">
+                <form id="search-form" method="post" action="{% url 'search' %}">
+
+                    <!-- https://docs.djangoproject.com/en/3.0/ref/csrf/ -->
+
+                    {% csrf_token %}
+
+                    <div class="messages"></div>
+
+                    <div class="controls">
+                        <div class="row">
+                            <div class="col-lg-12 form-group">
+
+
+                                <div class="input-group mb-3">
+                                    {{ form.form_searchText }}
+                                    <div class="input-group-append">
+                                        <button class="btn btn-down-search" type="submit" title="Search"><span class="fa fa-search text-white"></span></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+            {% if training_results is not None %}
+
+                <!-- Section Title -->
+                <h4 class="search-title"><span>Training Results:</span></h4>
+                <!-- results -->
+                <div class="search-box">
+                    <div class="container">
+                        <div class="row justify-content-center">
+            
+                            {% for course in training_results %}
+
+                                <div class="col-lg-4 col-sm-6 grid-item">
+                                    <div class="training-card p-2">
+
+                                        <div class="card border border-0 bg-white text-white">
+                                            <img class="card-img img-pm rounded-lg rounded-top" src="{% static 'Training/img/'|addstr:course.img %}" alt="Card image">
+                                            <div class="card-img-overlay rounded-lg rounded-top d-flex">
+                                                <div class="align-self-center mx-auto">
+                                                    <a href="{% url 'training_detail_nolink' course.id %}" class="training-button">View</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="training-title-wrap pb-1">
+                                            <div class="training-title py-2">
+                                                <h6 class="text-center">{{ course.title }}</h6>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            {% endfor %}
+            
+                        </div>
+                        <!--/row-->
+                    </div>
+                    <!--/container-->
+                </div>
+
+            {% endif %}
+
+            {% if project_results is not None %}
+
+                <!-- Section Title -->
+                <h4 class="search-title"><span>Project Results:</span></h4>
+                <!-- results -->
+                <div class="search-box">
+                    <div class="container">
+                        <div class="row justify-content-center">
+            
+                            {% for project in project_results %}
+
+                                <div class="col-lg-4 col-sm-6 grid-item">
+                                    <div class="project-card p-2">
+
+                                        <div class="card border border-0 bg-white text-white">
+                                            <img class="card-img img-pm rounded-lg rounded-top" src="{% static 'MyProjects/img/'|addstr:project.img %}" alt="Card image">
+                                            <div class="card-img-overlay rounded-lg rounded-top d-flex">
+                                                <div class="align-self-center mx-auto">
+                                                    <a href="{% url 'project_detail_nolink' project.id %}" class="project-button">View</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="project-title-wrap pb-1">
+                                            <div class="project-title py-2">
+                                                <h6 class="text-center">{{ project.title }}</h6>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            {% endfor %}
+            
+                        </div>
+                        <!--/row-->
+                    </div>
+                    <!--/container-->
+                </div>
+
+            {% endif %}
+
+        </div>
+        <!-- ./ Container -->
+    </section>
+    <!-- ======./ Contact ======  -->
+
+{% endblock %}
+
+{% block base_scripts %}
+
+{% endblock %}

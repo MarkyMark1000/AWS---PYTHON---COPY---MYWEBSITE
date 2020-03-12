@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load global_functions %}
+
+{% block head_title %}
+    <title>Group - {{ language.title }}</title>
+{% endblock %}
+
+{% block meta_description_keywords %}
+        <meta name="description" content="Project Group - {{ language.title }}">
+        <meta name="keywords" content="Mark,Wilson,HTML,CSS,JavaScript/JQuery,Language,{{ language.title }}">
+{% endblock %}
+
+{% block styles %}
+
+    <!-- Custom App Styles -->
+    <link href="{% static "MyProjects/css/style.css" %}" rel="stylesheet">
+    <link href="{% static "MyProjects/css/responsive.css" %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block main %}
+        
+
+    <!--====== Portfolio / Projects ======-->
+    <section  class="section-padding secton-border"  id="portfolio">
+
+        <h1 class="section-title">{{ language.title }}</h1>
+
+        <!-- MJW - Only add this if we have more than 1 sub category -->
+        <div class="container">
+            <div class="row">
+
+                <div class="project-border mx-auto">
+
+                    <div class="container">
+                        <div class="row justify-content-center">
+            
+                            {% for project in projects %}
+
+                                <div class="col-lg-4 col-sm-6 grid-item">
+                                    <div class="project-card p-2">
+
+                                        <div class="card border border-0 bg-white text-white">
+                                            <img class="card-img img-pm rounded-lg rounded-top" src="{% static 'MyProjects/img/'|addstr:project.img %}" alt="Card image">
+                                            <div class="card-img-overlay rounded-lg rounded-top d-flex">
+                                                <div class="align-self-center mx-auto">
+                                                    <a href="{% url 'project_detail' project.id %}" class="project-button">View</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="project-title-wrap pb-1">
+                                            <div class="project-title py-2">
+                                                <h6 class="text-center">{{ project.title }}</h6>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            {% endfor %}
+            
+                        </div>
+                        <!--/row-->
+                    </div>
+                    <!--/container-->
+                </div>
+                 <!--/project-border-->
+            </div>
+             <!--/row-->
+        </div>
+        <!--/container-->
+
+    </section>
+
+{% endblock main %}
+
+{% block base_scripts %}
+
+{% endblock %}

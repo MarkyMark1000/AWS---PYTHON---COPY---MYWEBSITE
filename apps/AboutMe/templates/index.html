@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block head_title %}
+    <title>Mark Wilson Home Page</title>
+{% endblock %}
+
+{% block meta_description_keywords %}
+        <meta name="description" content="Home Page for Mark Wilson">
+        <meta name="keywords" content="Mark,Wilson,HTML,CSS,JavaScript/JQuery,Home,About,Resume">
+{% endblock %}
+
+{% block styles %}
+
+    <!-- Custom App Styles -->
+    <link href="{% static "AboutMe/css/style.css" %}" rel="stylesheet">
+    <link href="{% static "AboutMe/css/responsive.css" %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block main %}
+
+    <!-- ====== Start About ======  -->
+    <section class="section-padding" id="idAboutIndex">
+
+        <h1 class="section-title">About Me</h1>
+
+        <div class="container">
+            <div class="row">
+                
+                <div class="about-content">
+                    <div class="container">
+
+                        <div class="row">
+                            <!--Description-->
+                            <div class="col-sm-12 pt-1 pb-1">
+                                <p>I am <strong>Mark Wilson</strong>.   I have many years of experience working with VBA within the finance industry. Following 
+                                a career break to look after 3 young children, I am very keen to return to the Job Market and expand on my 
+                                previous programming experience.   Ideally I would like to gain more exposure to fully object orientated programming languages such as Python or C++.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- /row -->
+                        <div class="row person-info">
+                            <!--Name-->
+                            <div class="col-lg-6">
+                                <i class="fa fa-user"></i><span>Name: </span>Mark Wilson
+                            </div>
+                            <!--Phone-->
+                            <div class="col-lg-6">
+                                <i class="fa fa-phone"></i><span>Phone: </span><a href="tel:+44-7800-719053" title="press to dial (phone compatible only)">+44 7800 719053</a>
+                            </div>
+                            <!--Email-->
+                            <div class="col-lg-6">
+                                <i class="fa fa-envelope"></i><span>Email: </span><a href="mailto:mark_john_wilson@yahoo.co.uk">mark_john_wilson@yahoo.co.uk</a>
+                            </div>
+                            <!--Address *** up to here -->
+                            <div class="col-lg-6">
+                                <i class="fa fa-map-marker"></i><span>Address: </span>Greenwich, London
+                            </div>
+                        </div>
+                        <!-- /row -->
+                        <div class="row">
+                            <div class="col-*-12 col-md-3 pt-4">
+                                <a href="{% static 'AboutMe/img/CV_Mark_Wilson.pdf' %}" class="btn btn-down-cv ml-0 mr-auto px-0" download>Get Mark's CV</a>
+                            </div>
+                        </div>
+                        <!-- /row -->
+
+                    </div>
+                    <!-- /container -->
+                </div>
+                <!-- /about-content -->
+
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </section>
+    <!-- ======./ About ======  -->
+
+    <!-- ====== Start resume ======  -->
+    <section class="resume section-padding"  id="idResumeIndex">
+
+        <!-- used h2 instead of h1 for bing validation -->
+        <h2 class="section-title">Resume</h2>
+
+        <div class="container">
+            <div class="row resume-body">
+                <!-- Resume Item -->
+                <div class="col-lg-12 resume-work clearfix">
+                    <h3 class="sub-tit">Work History</h3>
+                    <div class="timeline">
+                    <!-- Timeline Event -->
+                    <div class="timeline-event">
+                        <div class="timeline-event-point"></div>
+                        <div class="timeline-event-date">Oct 2003 - Jun 2011 </div>
+                        <div class="timeline-event-content wow fadeIn">
+                            <div class="timeline-event-title">Quantitive Developer and Fund Derivatives Trader</div>
+                            <p class="timeline-event-caption">ABN Amro / RBS</p>
+                            <p>
+                                    Mark initially worked as a Quantitative Developer within ABN Amro's Equity Derivatives department where he worked closely with traders, quantitative analysts and trade support to create a number of systems that helped manage the risk and enhance the competitiveness of the trading desks. &nbsp;&nbsp;He later moved onto the RBS Fund Derivatives Trading desk in 2008 and helped to trade and manage the risk associated with the Fund Derivatives during the extremely risky conditions that arose after the collapse of Lehman Brothers and during the Eurozone crisis.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Timeline Event -->
+                    <div class="timeline-event">
+                        <div class="timeline-event-point"></div>
+                        <div class="timeline-event-date">Jul 2000 - Jul 2001 </div>
+                        <div class="timeline-event-content  wow fadeIn">
+                            <div class="timeline-event-title">Market Risk Analyst</div>
+                            <p class="timeline-event-caption">Deutsche Bank</p>
+                            <p>Mark spent 1 year working for Deutsche Bank in their Risk Management Department. &nbsp;&nbsp;He spent many months writing and running macro's to assist in collecting, calculating and reporting market risk reports for the equity derivatives business.</p>
+                        </div>
+                    </div>
+                    <!-- Timeline Event -->
+                    <div class="timeline-event">
+                        <div class="timeline-event-point"></div>
+                        <div class="timeline-event-date">Sep 1997 - Jul 2000 </div>
+                        <div class="timeline-event-content  wow fadeIn">
+                            <div class="timeline-event-title">Front Office Developer</div>
+                            <p class="timeline-event-caption">Robert Fleming</p>
+                            <p>Mark joined Robert Fleming as a graduate Trainee.   He went on a number of training courses and obtained some excellent experience in many different area's of their IT department, but he eventually settled as a front office developer for the Equity Derivatives department. He spent many years programming VB, VBA and some C++. He obtained a SQL Server Developer certification and had his first introduction into Quantitative Programming by analysing and using their convertible bond xll.</p>
+                        </div>
+                    </div>
+                    </div>
+                    <!-- Timeline End -->
+                </div>
+                <!-- Resume Work End-->
+                <!-- Resume Item -->
+                <div class="col-lg-12 resume-edu clearfix">
+                    <h3 class="sub-tit">Education History</h3>
+                    <div class="timeline">
+                    <!-- Timeline Event -->
+                    <div class="timeline-event">
+                        <div class="timeline-event-point"></div>
+                        <div class="timeline-event-date">Sep 2002 - Sep 2003</div>
+                        <div class="timeline-event-content  wow fadeIn">
+                            <div class="timeline-event-title">MSc in Mathematical Tradign and Finance</div>
+                            <p class="timeline-event-caption">City University</p>
+                            <p>Mark studied and passed exams on many different financial topics relevant to trading, including option theory, basic stochastic calculus, the use of binomial trees and risk analysis techniques such as VaR. He wrote a dissertation on the Libor Market model using an XLL he wrote in C++. As a result of his efforts he obtained a distinction from City University. During this time he also helped setup an online retail business using ASP, HTML and CSS.</p>
+                        </div>
+                    </div>
+                    <!-- Timeline Event -->
+                    <div class="timeline-event ">
+                        <div class="timeline-event-point"></div>
+                        <div class="timeline-event-date">Sep 1993 - Sep 1997</div>
+                        <div class="timeline-event-content  wow fadeIn">
+                            <div class="timeline-event-title">MSci in Physics</div>
+                            <p class="timeline-event-caption">Imperial College, London</p>
+                            <p>Mark spent a number of years studying for an MSc in Physics at Imperial College.   He left in 1997 with a 2:1 and went on to join the Robert Fleming graduate training program.</p>
+                        </div>
+                    </div>
+                    </div>
+                    <!-- Timeline End --> 
+                </div>
+                <!-- Resume End --> 
+            </div>
+            <!-- ./ Row -->
+        </div>
+        <!-- ./ Container -->
+    </section>
+    <!-- ======./ resume ======  -->
+
+
+{% endblock %}
+
+{% block base_scripts %}
+
+    <script src="{% static "AboutMe/js/custom.js" %}"></script>
+
+{% endblock %}

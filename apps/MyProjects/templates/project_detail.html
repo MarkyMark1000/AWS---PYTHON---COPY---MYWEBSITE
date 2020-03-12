@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load global_functions %}
+
+{% block head_title %}
+    <title>Project - {{ project.title }}</title>
+{% endblock %}
+
+{% block meta_description_keywords %}
+        <meta name="description" content="Project detail - {{ project.title }}">
+        <meta name="keywords" content="Mark,Wilson,HTML,CSS,JavaScript/JQuery,Project,{{ project.title }}">
+{% endblock %}
+
+{% block styles %}
+
+    <!-- Custom App Styles -->
+    <link href="{% static "MyProjects/css/style.css" %}" rel="stylesheet">
+    <link href="{% static "MyProjects/css/responsive.css" %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block main %}
+        
+
+    <!-- project portfolio section start -->
+    <section class="project-portfolio section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <img class="img-pm" src="{% static 'MyProjects/img/'|addstr:project.img %}" alt="Project Image">
+                </div>
+                <div class="col-lg-6">
+                    <div class="project-meta-wrapper">
+                        <h4 class="sub-tit">Project Information </h4>
+                        <ul class="single-project-meta">
+                            <li>
+                                <i class="fa fa-graduation-cap"></i><span>Project:</span>{{ project.title }}
+                            </li>
+                            <li>
+                                <i class="fa fa-calendar"></i><span>Date:</span>{{ formatedDate }}
+                            </li>
+                            <li>
+                                <i class="fa fa-users"></i><span>Language:</span>{{ language.title }}
+                            </li>
+                            <li>
+                                <!-- Code is compulsory for projects -->
+                                <i class="fa fa-link"></i><span>Code: </span><a href="{{ project.code_href }}">{{ project.code_text }}</a>
+                            </li>
+                            {% if project.link_text|linkValid:project.link_href %}
+                            <li>
+                                <!-- A link is not compulsory for projects -->
+                                <i class="fa fa-link"></i><span>Link: </span><a href="{{ project.link_href }}">{{ project.link_text }}</a>
+                            </li>
+                        </ul>
+                            {% else %}
+                            {# Use ul (above) if adding link, else ul br to pad out the missing section a bit. #}
+                        </ul><br>
+                            {% endif %}
+                        <div class="project-info">
+                            <h4 class="sub-tit">A Short Brief</h4>
+                            <p>
+                                {{ project.short_text }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="single-project-description">
+                        <h4 class="sub-tit">Project Details</h4>
+                        
+                        {{ projectHTML }}
+                        
+                    </div>
+                </div>
+            </div>
+            <!--/row-->
+            <div class="row">
+                <div class="col-6 text-left">
+                    {% if prev is not None %}
+                        <a href="{% url 'project_detail' prev.id %}" class="project-link prev-project"><i class="fa fa-angle-left"></i> previous</a>
+                    {% endif %}
+                </div>
+                <div class="col-6 text-right">
+                    {% if next is not None %}
+                        <a href="{% url 'project_detail' next.id %}" class="project-link next-project">next <i class="fa fa-angle-right"></i></a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- project portfolio section end -->
+
+
+{% endblock main %}
+
+{% block base_scripts %}
+
+{% endblock %}
