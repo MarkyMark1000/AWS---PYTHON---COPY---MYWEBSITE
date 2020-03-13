@@ -5,11 +5,7 @@ MYWEBSITE - DJANGO AND AWS
 Overview
 ========
 
-This project is used to deploy MyWebsite on the following sites:
-
-    - Localhost - for development work
-    - test.markjohnwilson.net - for testing
-    - www.markjohnwilson.net - production
+This project is used to deploy MyWebsite on my Localhost a test environment and production environment.
 
 It uses a number of technologies including:
 
