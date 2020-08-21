@@ -7,6 +7,7 @@ class SearchForm(forms.Form):
                                 'placeholder': 'Search *',
                                 'minlength': '1',
                                 'maxlength': '30',
+                                'autocomplete': 'off',
                                 'title': 'A string between 1 and 30 '
                                          'characters is required.'
                                 }),)

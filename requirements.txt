@@ -11,7 +11,9 @@ Genshi==0.7.3
 idna==2.8
 jmespath==0.9.4
 mysqlclient==1.4.6
+pycodestyle==2.5.0
 Pygments==2.0.2
+PyMySQL==0.9.3
 python-dateutil==2.8.0
 pytz==2019.3
 requests==2.22.0

@@ -9,7 +9,8 @@
         <h1>MYWEBSITE - DJANGO AND AWS</h1>
         <section id="overview">
             <h2>Overview</h2>
-            <p>This project is used to deploy MyWebsite on the following sites:</p>
+            <p>This is a copy of a Django website. Some of the code has been adjusted to change secret keys to comments such as 'blahdeblahdeblah'.</p>
+            <p>The project is used to deploy MyWebsite on the following sites:</p>
             <blockquote>
                 <ul>
                     <li>Localhost - for development work</li>
@@ -27,7 +28,7 @@
                 </ul>
             </blockquote>
             <p>The system is designed to integrate with AWS's CodePipeline with GitHub being the source.</p>
-            <p>The site was based on the Aladin template written largely using bootstrap 4. As such it may not work effectively on older browsers.</p>
+            <p>The site was based on the Aladin template written largely using bootstrap 4, but has been adjusted extensively. As such it may not work effectively on older browsers.</p>
         </section>
         <section id="installation-guide">
             <h2>Installation Guide</h2>
@@ -35,14 +36,15 @@
                 <h3>Manual Installation</h3>
                 <p>Installation for this project is complicated.</p>
                 <ul>
-                    <li>Firstly, for local development, a MySQL database is used with an account that has the ability to create and load data into into test databases. The settings file contains two sets of code beginning with 'DATABASES = {'. These indicate the connection requirements for the database which will need to be updated for the local database.</li>
+                    <li>Firstly, for local development, a MySQL database is used with an account that has the ability to create and load data into into test databases. The settings file contains three sets of code beginning with 'DATABASES = {'. These indicate the connection requirements for the database which will need to be updated for the local database.</li>
+                    <li>There is a database connection that is used when the docker-compose scripts are initiated in the docker directory (see later).</li>
                     <li>In addition to this, when the application is run within AWS it is assumed that two elasticbeanstalk environments exist with the following characteristics:</li>
                     <li>
                         <dl>
                             <dt>Test Environment:</dt>
                             <dd>
                                 <ul>
-                                    <li>Currently an Application Load Balancer is used, but this may be changed in the future due to cost considerations.</li>
+                                    <li>Originally an EB environment with an Application Load Balancer was used, but this was expensive so the project was changed to support a single instance, which is inferior, but less expensive.</li>
                                     <li>WSGIPath is set to ebdjango/wsgi.py</li>
                                     <li>Static Files are set so that /static/ is equal to static/</li>
                                     <li>
@@ -95,7 +97,7 @@
                             <dt>Production Environment:</dt>
                             <dd>
                                 <ul>
-                                    <li>Currently an Application Load Balancer is used, but this may be changed in the future due to cost considerations.</li>
+                                    <li>Originally an EB environment with an Application Load Balancer was used, but this was expensive so the project was changed to support a single instance, which is inferior, but less expensive.</li>
                                     <li>WSGIPath is set to ebdjango/wsgi.py</li>
                                     <li>Static Files are set so that /static/ is equal to static/</li>
                                     <li>
@@ -152,6 +154,11 @@
                     <li>Run:</li>
                     <li>make venv-run - runs the script in the venv virtual environment (may not work well due to ManifestStaticFilesStorage).</li>
                     <li>make venv-run-debug - runs the script in the venv virtual environment, in debug mode</li>
+                    <li>Docker: (must have docker installed and running)</li>
+                    <li>make doc-up - Run docker compose to raise database and website.</li>
+                    <li>make doc-down - DANGER - Clear the docker stack.</li>
+                    <li>make doc-test-up - Run docker compose to raise database and website.</li>
+                    <li>make doc-test-down - DANGER - Clear the docker stack.</li>
                     <li>Testing:</li>
                     <li>make venv-build-fixtures - DANGER - rebuilds fixtures files from current database, which are used in tests.</li>
                     <li>make venv-test - Run the Test in the virtual environment.</li>
@@ -168,6 +175,22 @@
                     <li>make venv-build-req - Rebuilds the requirements file from the venv virtual environment.</li>
                 </ul>
             </section>
+        </section>
+        <section id="notes-about-docker">
+            <h2>NOTES ABOUT DOCKER</h2>
+            <p>Two docker-compose scripts and one dockerfile have been provided in the docker directory which can be used to try the system out in an independent manner. However some familiarity with docker will be required as there is a risk that docker containers and images could be left on your system. In addition to this, some code characteristics interface with AWS and there may be issues with Docker connecting to the internet. This may stop some features and tests working on the app, such as the contactme section.</p>
+            <ul>
+                <li><a href="https://github.com/docker/for-mac/issues/931">https://github.com/docker/for-mac/issues/931</a></li>
+            </ul>
+            <p>When doc-up has been run, it creates a MySQL database image and then waits for this to be ready. This normally takes less than 60 seconds to initiate. Once initiated, the site can be seen on localhost:8080</p>
+            <p>The docker-compose files use a number of environment variables to connect to the database, these include:</p>
+            <ul>
+                <li>DOCKER_PASSWORD</li>
+                <li>DOCKER_USER</li>
+                <li>DOCKER_DB</li>
+                <li>DOCKER_HOST</li>
+                <li>DOCKER_PORT</li>
+            </ul>
         </section>
     </section>
 </body>

@@ -3,6 +3,7 @@ from django.apps import apps
 from django.template import Context, Template
 from apps.ContactMe.apps import ContactmeConfig
 from apps.ContactMe.forms import ContactForm
+import ebdjango.settings as settings
 
 # Create your tests here.
 
@@ -10,10 +11,18 @@ from apps.ContactMe.forms import ContactForm
 class ContactMeTest(TestCase):
 
     def setUp(self):
-        pass
+        '''
+        recaptcha needs to use different site and private keys if we are
+        doing a unittest so we let the contactme section know when we are
+        testing by using the G_TESTING varaible
+        '''
+        settings.G_TESTING = True
 
     def tearDown(self):
-        pass
+        '''
+        Turn off testing variable
+        '''
+        settings.G_TESTING = False
 
     def test_contactme_page_status(self):
         '''
@@ -69,8 +78,9 @@ class ContactMeTest(TestCase):
         postData = {'form_name': "Mark Wilson",
                     'form_email': "mark_john_wilson@yahoo.co.uk",
                     'form_subject': "UNIT TEST - CONTACTME",
-                    'form_message': "TEST CONTACTFORM IN CONTACTME APP"
+                    'form_message': "TEST CONTACTFORM IN CONTACTME APP",
                     }
+
         response = self.client.post("/contactme/", postData)
         self.assertEqual(response.status_code, 200)
         self.assertIn("I appreciate you contacting me", str(response.content))
@@ -83,7 +93,8 @@ class ContactMeTest(TestCase):
         postData = {'form_name': "Mark Wilson",
                     'form_email': "",
                     'form_subject': "UNIT TEST - CONTACTME",
-                    'form_message': "TEST CONTACTFORM IN CONTACTME APP"}
+                    'form_message': "TEST CONTACTFORM IN CONTACTME APP",
+                    }
         response = self.client.post("/contactme/", postData)
 
         # The form should post successfully.

@@ -15,18 +15,32 @@
 {% block styles %}
 
     <!-- Custom App Styles -->
-    <link href="{% static "MyProjects/css/style.css" %}" rel="stylesheet">
-    <link href="{% static "MyProjects/css/responsive.css" %}" rel="stylesheet">
+    <link href="{% static 'MyProjects/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'MyProjects/css/responsive.css' %}" rel="stylesheet">
+
+    <style>
+        /*
+        There is another version of this in ebdjango to allow global scalling etc.   This 
+        is to allow us to adjust the image per section       
+        */
+        .back_image_paral{
+            background-image: url("{% static 'AboutMe/img/background_6.jpg' %}");
+        }
+    </style>
 
 {% endblock %}
 
 {% block main %}
-        
+
+    <div class="p-container">
+        <section>
+            <div class="image back_image_paral bg_scroll" data-type="background" data-speed="2"></div>
+            <div class="stuff" data-type="content" data-speed="100"><h1>{{ language.title }}</h1></div>
+        </section>
+    </div>
 
     <!--====== Portfolio / Projects ======-->
-    <section  class="section-padding secton-border"  id="portfolio">
-
-        <h1 class="section-title">{{ language.title }}</h1>
+    <section  class="section-padding-top secton-border"  id="portfolio">
 
         <!-- MJW - Only add this if we have more than 1 sub category -->
         <div class="container">
@@ -39,17 +53,24 @@
             
                             {% for project in projects %}
 
-                                <div class="col-lg-4 col-sm-6 grid-item">
+                                <div class="col-lg-4 col-sm-6 col-xs-12 grid-item u--slideInRight">
                                     <div class="project-card p-2">
 
-                                        <div class="card border border-0 bg-white text-white">
-                                            <img class="card-img img-pm rounded-lg rounded-top" src="{% static 'MyProjects/img/'|addstr:project.img %}" alt="Card image">
-                                            <div class="card-img-overlay rounded-lg rounded-top d-flex">
-                                                <div class="align-self-center mx-auto">
-                                                    <a href="{% url 'project_detail' project.id %}" class="project-button">View</a>
+                                        <a href="{% url 'project_detail' project.id %}"> 
+                                            <div class="card border border-0 bg-white text-white">
+                                                <img class="card-img img-pm rounded-lg rounded-top" src="{% static 'MyProjects/img/'|addstr:project.img %}" alt="Card image">
+                                                
+                                                <div class="card-img-overlay rounded-lg rounded-top d-flex justify-content-center align-items-center">
+
+                                                    <!--<span class="d-flex justify-content-center align-items-center project-button">-->
+                                                        <i class="fa fa-link fa-flip-horizontal"></i>
+                                                    <!--</span>-->
+    
                                                 </div>
+
                                             </div>
-                                        </div>
+                                        </a>
+
                                         <div class="project-title-wrap pb-1">
                                             <div class="project-title py-2">
                                                 <h6 class="text-center">{{ project.title }}</h6>

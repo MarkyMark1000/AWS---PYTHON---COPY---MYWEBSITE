@@ -105,7 +105,7 @@ class ProjectDetailViewWithLinks(ProjectDetailView):
 
         # Get the previous course
         if projectIndex > 0:
-            prevCourse = filtProjects[courseIndex-1]
+            prevCourse = filtProjects[projectIndex-1]
             self._contextData['prev'] = prevCourse
 
     def get(self, request, **kwargs):

@@ -5,7 +5,14 @@ MYWEBSITE - DJANGO AND AWS
 Overview
 ========
 
-This project is used to deploy MyWebsite on my Localhost a test environment and production environment.
+This is a copy of a Django website.   Some of the code has been adjusted to change secret keys to 
+comments such as 'blahdeblahdeblah'.
+
+The project is used to deploy MyWebsite on the following sites:
+
+    - Localhost - for development work
+    - test.markjohnwilson.net - for testing
+    - www.markjohnwilson.net - production
 
 It uses a number of technologies including:
 
@@ -16,8 +23,8 @@ It uses a number of technologies including:
 
 The system is designed to integrate with AWS's CodePipeline with GitHub being the source.
 
-The site was based on the Aladin template written largely using bootstrap 4.   As such it may not work
-effectively on older browsers.
+The site was based on the Aladin template written largely using bootstrap 4, but has been adjusted extensively.   As such it
+may not work effectively on older browsers.
 
 Installation Guide
 ==================
@@ -28,15 +35,19 @@ Manual Installation
 Installation for this project is complicated.
 
 - Firstly, for local development, a MySQL database is used with an account that has the ability to create
-  and load data into into test databases.   The settings file contains two sets of code beginning with 
+  and load data into into test databases.   The settings file contains three sets of code beginning with 
   'DATABASES = {'.   These indicate the connection requirements for the database which will need to be
   updated for the local database.
+
+- There is a database connection that is used when the docker-compose scripts are initiated in the docker
+  directory (see later).
 
 - In addition to this, when the application is run within AWS it is assumed that two elasticbeanstalk
   environments exist with the following characteristics:
 
 -  Test Environment:
-    - Currently an Application Load Balancer is used, but this may be changed in the future due to cost considerations.
+    - Originally an EB environment with an Application Load Balancer was used, but this was expensive so the project was changed to
+      support a single instance, which is inferior, but less expensive.
     - WSGIPath is set to ebdjango/wsgi.py
     - Static Files are set so that /static/ is equal to static/
     - The following environment variables are set:
@@ -51,7 +62,8 @@ Installation for this project is complicated.
 
 
 -  Production Environment:
-    - Currently an Application Load Balancer is used, but this may be changed in the future due to cost considerations.
+    - Originally an EB environment with an Application Load Balancer was used, but this was expensive so the project was changed to
+      support a single instance, which is inferior, but less expensive.
     - WSGIPath is set to ebdjango/wsgi.py
     - Static Files are set so that /static/ is equal to static/
     - The following environment variables are set:
@@ -87,6 +99,11 @@ Typical commands include:
 - Run:
 - make venv-run      		    - runs the script in the venv virtual environment (may not work well due to ManifestStaticFilesStorage).
 - make venv-run-debug      	- runs the script in the venv virtual environment, in debug mode
+- Docker: (must have docker installed and running)
+- make doc-up			    - Run docker compose to raise database and website.
+- make doc-down			- DANGER - Clear the docker stack.
+- make doc-test-up		- Run docker compose to raise database and website.
+- make doc-test-down		- DANGER - Clear the docker stack.
 - Testing:
 - make venv-build-fixtures	- DANGER - rebuilds fixtures files from current database, which are used in tests.
 - make venv-test   		    - Run the Test in the virtual environment.
@@ -101,3 +118,24 @@ Typical commands include:
 - make clean-cov    		    - Remove coverage from core directory.
 - Distribution:
 - make venv-build-req    		- Rebuilds the requirements file from the venv virtual environment.
+
+NOTES ABOUT DOCKER
+==================
+
+Two docker-compose scripts and one dockerfile have been provided in the docker directory which can be used to try the system out
+in an independent manner.   However some familiarity with docker will be required as there is a risk that docker containers and
+images could be left on your system.   In addition to this, some code characteristics interface with AWS and there may be issues with Docker
+connecting to the internet.   This may stop some features and tests working on the app, such as the contactme section.
+
+- https://github.com/docker/for-mac/issues/931
+
+When doc-up has been run, it creates a MySQL database image and then waits for this to be ready.   This normally takes less than
+60 seconds to initiate.   Once initiated, the site can be seen on localhost:8080
+
+The docker-compose files use a number of environment variables to connect to the database, these include:
+
+- DOCKER_PASSWORD
+- DOCKER_USER
+- DOCKER_DB
+- DOCKER_HOST
+- DOCKER_PORT

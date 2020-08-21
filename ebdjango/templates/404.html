@@ -11,7 +11,28 @@
         <meta name="keywords" content="Mark,Wilson,HTML,CSS,JavaScript/JQuery,404">
 {% endblock %}
 
+{% block styles %}
+
+    <style>
+        /*
+        There is another version of this in ebdjango to allow global scalling etc.   This 
+        is to allow us to adjust the image per section       
+        */
+        .back_image_paral{
+            background-image: url("{% static 'AboutMe/img/background_6.jpg' %}");
+        }
+    </style>
+
+{% endblock %}
+
 {% block main %}
+
+    <div class="p-container">
+        <section>
+            <div class="image back_image_paral bg_scroll" data-type="background" data-speed="2"></div>
+            <div class="stuff" data-type="content" data-speed="100"><h1>Training</h1></div>
+        </section>
+    </div>
 
     <!-- ====== Start Contact ======  -->
     <section class="section-padding"  id="success">

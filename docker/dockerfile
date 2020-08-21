@@ -1,0 +1,15 @@
+FROM python:3.6
+
+# Environment Variables
+ENV PYTHONUNBUFFERED 1
+
+# Create new directory for code and move to that directory
+RUN mkdir /code
+WORKDIR /code
+
+# Copy source code across
+COPY ./ /code/
+
+# Install requirements and collect static
+RUN pip install -r requirements.txt
+RUN python manage.py collectstatic --noinput

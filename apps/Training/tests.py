@@ -77,3 +77,21 @@ class TrainingTest(TestCase):
         '''
         tstCourse = TrainingCourse(title="TEST TITLE")
         self.assertEqual(str(tstCourse), tstCourse.title)
+
+    def test_traininggroup_absolute_url(self):
+        '''
+        Test the absolute_url of the project returns something sensible.
+        KEY - The test data has a pk of 1
+        '''
+        objG = TrainingGroup.objects.get(pk=1)
+        strURL = objG.get_absolute_url()
+        self.assertIn("training/1", strURL)
+
+    def test_myproject_absolute_url(self):
+        '''
+        Test the absolute_url of the project returns something sensible.
+        KEY - The test data has a pk of 1
+        '''
+        objC = TrainingCourse.objects.get(pk=1)
+        strURL = objC.get_absolute_url()
+        self.assertIn("training/detail/1", strURL)

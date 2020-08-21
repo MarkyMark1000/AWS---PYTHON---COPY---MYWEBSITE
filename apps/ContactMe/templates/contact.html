@@ -14,18 +14,35 @@
 {% block styles %}
 
     <!-- Custom App Styles -->
-    <link href="{% static "ContactMe/css/style.css" %}" rel="stylesheet">
-    <link href="{% static "ContactMe/css/responsive.css" %}" rel="stylesheet">
+    <link href="{% static 'ContactMe/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'ContactMe/css/responsive.css' %}" rel="stylesheet">
+
+    <!-- Google Recaptcha -  not really a style -->
+    <script src='https://www.google.com/recaptcha/api.js' async defer></script>
+
+    <style>
+        /*
+        There is another version of this in ebdjango to allow global scalling etc.   This 
+        is to allow us to adjust the image per section       
+        */
+        .back_image_paral{
+            background-image: url("{% static 'AboutMe/img/background_6.jpg' %}");
+        }
+    </style>
 
 {% endblock %}
 
 {% block main %}
 
-    <!-- ====== Start Contact ======  -->
-    <section class="section-padding"  id="contact">
+    <div class="p-container">
+        <section>
+            <div class="image back_image_paral bg_scroll" data-type="background" data-speed="2"></div>
+            <div class="stuff" data-type="content" data-speed="100"><h1>Contact Me</h1></div>
+        </section>
+    </div>
 
-        <!-- Section Title -->
-        <h1 class="section-title">Contact Me</h1>
+    <!-- ====== Start Contact ======  -->
+    <section class="section-padding-top"  id="contact">
 
         <div class="container">
             <!-- contact form -->
@@ -55,6 +72,12 @@
                             <div class="col-lg-12">
                                 <input type="submit" class="btn btn-down-contact" value="Send message">
                             </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="extra-error col-12 text-center">{{EXTRA_ERROR}}</div>
+                            <br><br><br>
+                            <div class="g-recaptcha" data-sitekey={{RECAPTCHA_SITEKEY}}></div>
+
                         </div>
                     </div>
                 </form>

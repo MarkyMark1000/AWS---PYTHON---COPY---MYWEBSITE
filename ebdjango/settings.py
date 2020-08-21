@@ -21,6 +21,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # This is used to define database connections etc
 AWS_ENV_TYPE = os.environ.get('EnvType', '')
 
+# See if we have an environment variable named DOCKER, (length
+# greater than 1), to see if we are connecting to docker db
+DOCKER_PASSWORD = os.environ.get('DOCKER_PASSWORD', '')
+DOCKER_USER = os.environ.get('DOCKER_USER', '')
+DOCKER_DB = os.environ.get('DOCKER_DB', '')
+DOCKER_HOST = os.environ.get('DOCKER_HOST', '')
+DOCKER_PORT = os.environ.get('DOCKER_PORT', '')
+
 # Setup AWS Parameter Store for database connections etc.
 AWS_PSTORE_PROJECT = '/MarksWebsite/'
 AWS_PSTORE_REGION = 'eu-west-2'
@@ -39,17 +47,30 @@ if len(AWS_ENV_TYPE) > 0:
     SECRET_KEY = AWSPStore.get_parameter('SecretKey', True)
 else:
     # Use default SECRET_KEY for local computer
-    SECRET_KEY = 'BlahDeBlahMySecretKey'
+    SECRET_KEY = 'blahdeblahdeblah'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get('DJANGO_DEBUG', False))
 
+# GOOGLE recaptcha needs to use different keys if we are running a
+# unit test (NOT THE 'test' AWS environment).   Define a variable for
+# this with default False, but which is set to True within the tests
+G_TESTING = False
 
-ALLOWED_HOSTS = ['myawslivehosts',
-                 'myawstesthosts',
-                 'mytestdomain',
-                 'mylivedomain',
-                 'localhost',
+# Get the recaptcha keys
+if len(AWS_ENV_TYPE) > 0:
+    # Get Recaptcha keys from parameter store
+    G_RECAPTCHA_SITEKEY = AWSPStore.get_parameter('Recaptcha_SiteKey', False)
+    G_RECAPTCHA_SECRETKEY = AWSPStore.get_parameter('Recaptcha_SecretKey',
+                                                    True)
+else:
+    # (google recommends seperate localhost/127.0.0.1 keys)
+    G_RECAPTCHA_SITEKEY = 'blahdeblahdeblah'
+    G_RECAPTCHA_SECRETKEY = 'blahdeblahdeblah'
+
+
+ALLOWED_HOSTS = ['localhost',
+                 '0.0.0.0',
                  '127.0.0.1']
 
 # Append EC2 IP to ALLOWED_HOSTS, necessary for health check to work.
@@ -136,15 +157,27 @@ if len(AWS_ENV_TYPE) > 0:
             'PORT': AWSPStore.get_parameter('DBPORT', False),
         }
     }
-else:
-    # Connect to your localhost database for development work
-    # (db is on localhost)
+elif len(DOCKER_DB) > 0:
+    # Connect to a docker database as specified in the docker-compose
+    # file.
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'MyDatabaseName',
-            'USER': 'MyDatabaseUserWithAbilityToCreateDBs',
-            'PASSWORD': 'MyPassword',
+            'NAME': DOCKER_DB,
+            'USER': DOCKER_USER,
+            'PASSWORD': DOCKER_PASSWORD,
+            'HOST': DOCKER_HOST,
+            'PORT': DOCKER_PORT,
+        }
+    }
+else:
+    # Assume localc computer and connecting to localhost.
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'dbMarksWebsite',
+            'USER': 'root',
+            'PASSWORD': 'blahdeblahdeblah',
             'HOST': 'localhost',
             'PORT': '3306',
         }

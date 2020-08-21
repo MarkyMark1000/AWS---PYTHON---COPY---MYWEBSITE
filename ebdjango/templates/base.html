@@ -34,10 +34,10 @@
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700,900" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
-        
         <!-- Custom Main Project Styles -->
         <link href="{% static "ebdjango/css/style.css" %}" rel="stylesheet">
         <link href="{% static "ebdjango/css/responsive.css" %}" rel="stylesheet">
+        <link href="{% static "ebdjango/css/fade.css" %}" rel="stylesheet">
 
         {% block styles %}{% endblock %}
 
@@ -62,8 +62,10 @@
                     <img class="logo-1" src="{% static 'ebdjango/img/logo-1.png' %}" alt="MJW Logo Image">
                 </a>
                 <!-- Toggler/collapsibe Button -->
-                <button class="navbar-toggler" type="button" aria-label="toggle navbar" data-toggle="collapse" data-target="#menuNavbar">
-                    <span class="navbar-toggler-icon"></span>
+                <button class="navbar-toggler collapsed" type="button" aria-label="toggle navbar" data-toggle="collapse" data-target="#menuNavbar">
+                    <span class="icon-bar top-bar"></span>
+                    <span class="icon-bar middle-bar"></span>
+                    <span class="icon-bar bottom-bar"></span>
                 </button>
                 <!-- navbar-nav -->
                 <div class="collapse navbar-collapse" id="menuNavbar">
@@ -132,7 +134,7 @@
         <!-- ======./ Footer ======  -->
 
         <!-- JavaScript -->
-
+        
         <script src="{% static "ebdjango/js/custom.js" %}"></script>
 
         {% block base_scripts %}{% endblock %}

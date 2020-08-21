@@ -15,27 +15,39 @@
 {% block styles %}
 
     <!-- Custom App Styles -->
-    <link href="{% static "MySearch/css/style.css" %}" rel="stylesheet">
-    <link href="{% static "MySearch/css/responsive.css" %}" rel="stylesheet">
+    <link href="{% static 'MySearch/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'MySearch/css/responsive.css' %}" rel="stylesheet">
+
+    <style>
+        /*
+        There is another version of this in ebdjango to allow global scalling etc.   This 
+        is to allow us to adjust the image per section       
+        */
+        .back_image_paral{
+            background-image: url("{% static 'AboutMe/img/background_6.jpg' %}");
+        }
+    </style>
 
 {% endblock %}
 
 {% block main %}
 
-    <!-- ====== Start Search ======  -->
-    <section class="section-padding"  id="search">
+    <div class="p-container">
+        <section>
+            <div class="image back_image_paral bg_scroll" data-type="background" data-speed="2"></div>
+            <div class="stuff" data-type="content" data-speed="100"><h1>Search</h1></div>
+        </section>
+    </div>
 
-        <!-- Section Title -->
-        <h1 class="section-title">Search</h1>
+    <!-- ====== Start Search ======  -->
+    <section class="section-padding-top"  id="search">
 
         <div class="container">
             <!-- contact form -->
             <div class="search-box">
-                <form id="search-form" method="post" action="{% url 'search' %}">
+                <form id="search-form" method="get" action="{% url 'search' %}" autocomplete="off">
 
-                    <!-- https://docs.djangoproject.com/en/3.0/ref/csrf/ -->
-
-                    {% csrf_token %}
+                    <!--NOTE MIDDLEWARE TOKEN: {% csrf_token %}-->
 
                     <div class="messages"></div>
 
@@ -59,87 +71,121 @@
 
             </div>
 
-            {% if training_results is not None %}
+        {% if page.trainingPage is not None %}
 
-                <!-- Section Title -->
-                <h4 class="search-title"><span>Training Results:</span></h4>
-                <!-- results -->
-                <div class="search-box">
-                    <div class="container">
-                        <div class="row justify-content-center">
-            
-                            {% for course in training_results %}
+            <!-- Section Title -->
+            <h4 class="search-title"><span>Training Results:</span></h4>
+            <!-- results -->
+            <div class="search-box">
+                <div class="container">
+                    <div class="row justify-content-center">
+        
+                        {% for course in page.trainingPage %}
 
-                                <div class="col-lg-4 col-sm-6 grid-item">
-                                    <div class="training-card p-2">
+                            <div class="col-lg-4 col-sm-6 col-xs-12 grid-item u--slideInRight">
+                                <div class="training-card p-2">
 
+                                    <a href="{% url 'training_detail_nolink' course.id %}">
                                         <div class="card border border-0 bg-white text-white">
                                             <img class="card-img img-pm rounded-lg rounded-top" src="{% static 'Training/img/'|addstr:course.img %}" alt="Card image">
-                                            <div class="card-img-overlay rounded-lg rounded-top d-flex">
-                                                <div class="align-self-center mx-auto">
-                                                    <a href="{% url 'training_detail_nolink' course.id %}" class="training-button">View</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="training-title-wrap pb-1">
-                                            <div class="training-title py-2">
-                                                <h6 class="text-center">{{ course.title }}</h6>
-                                            </div>
-                                        </div>
+                                            
+                                            <div class="card-img-overlay rounded-lg rounded-top d-flex justify-content-center align-items-center">
 
+                                                <!--<span class="d-flex justify-content-center align-items-center training-button">-->
+                                                    <i class="fa fa-link fa-flip-horizontal"></i>
+                                                <!--</span>-->
+
+                                            </div>
+
+                                        </div>
+                                    </a>
+                                    <div class="training-title-wrap pb-1">
+                                        <div class="training-title py-2">
+                                            <h6 class="text-center">{{ course.title }}</h6>
+                                        </div>
                                     </div>
+
                                 </div>
+                            </div>
 
-                            {% endfor %}
-            
-                        </div>
-                        <!--/row-->
+                        {% endfor %}
+        
                     </div>
-                    <!--/container-->
+                    <!--/row-->
                 </div>
+                <!--/container-->
+            </div>
 
-            {% endif %}
+        {% endif %}
 
-            {% if project_results is not None %}
+        {% if page.projectsPage is not None %}
 
-                <!-- Section Title -->
-                <h4 class="search-title"><span>Project Results:</span></h4>
-                <!-- results -->
-                <div class="search-box">
-                    <div class="container">
-                        <div class="row justify-content-center">
-            
-                            {% for project in project_results %}
+            <!-- Section Title -->
+            <h4 class="search-title"><span>Project Results:</span></h4>
+            <!-- results -->
+            <div class="search-box">
+                <div class="container">
+                    <div class="row justify-content-center">
+        
+                        {% for project in page.projectsPage %}
 
-                                <div class="col-lg-4 col-sm-6 grid-item">
-                                    <div class="project-card p-2">
-
+                            <div class="col-lg-4 col-sm-6 col-xs-12 grid-item u--slideInRight">
+                                <div class="project-card p-2">
+                                    
+                                    <a href="{% url 'project_detail_nolink' project.id %}">
                                         <div class="card border border-0 bg-white text-white">
                                             <img class="card-img img-pm rounded-lg rounded-top" src="{% static 'MyProjects/img/'|addstr:project.img %}" alt="Card image">
-                                            <div class="card-img-overlay rounded-lg rounded-top d-flex">
-                                                <div class="align-self-center mx-auto">
-                                                    <a href="{% url 'project_detail_nolink' project.id %}" class="project-button">View</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="project-title-wrap pb-1">
-                                            <div class="project-title py-2">
-                                                <h6 class="text-center">{{ project.title }}</h6>
-                                            </div>
-                                        </div>
+                                            
+                                            <div class="card-img-overlay rounded-lg rounded-top d-flex justify-content-center align-items-center">
 
+                                                <!--<span class="d-flex justify-content-center align-items-center project-button">-->
+                                                    <i class="fa fa-link fa-flip-horizontal"></i>
+                                                <!--</span>-->
+
+                                            </div>
+
+                                        </div>
+                                    </a>
+                                    <div class="project-title-wrap pb-1">
+                                        <div class="project-title py-2">
+                                            <h6 class="text-center">{{ project.title }}</h6>
+                                        </div>
                                     </div>
+
                                 </div>
+                            </div>
 
-                            {% endfor %}
-            
-                        </div>
-                        <!--/row-->
+                        {% endfor %}
+        
                     </div>
-                    <!--/container-->
+                    <!--/row-->
                 </div>
+                <!--/container-->
+            </div>
 
-            {% endif %}
+        {% endif %}
+
+        {% if noPages > 1 %}
+        <br>
+        <div class="pagenumber-box">
+            <div class="container">
+                <div class="row">
+                    <div class="col-4 grid-item text-left">
+                        {% if page.has_previous %}
+                        <a href="{{ page.previous_page_link }}" class="search-link">&lt; prev</a>
+                        {% endif %}
+                    </div>
+                    <div class="col-4 grid-item text-center search-text">
+                        page {{ page.number }}
+                    </div>
+                    <div class="col-4 grid-item text-right">
+                        {% if page.has_next %}
+                        <a href="{{ page.next_page_link }}" class="search-link">next &gt;</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
 
         </div>
         <!-- ./ Container -->

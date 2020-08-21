@@ -1,0 +1,50 @@
+version: '3'
+
+# Once up and running, you should be able to connect to the mysql database
+# using localhost, 3308, django and secret
+# The website should be accessible via localhost 8080
+
+services:
+  mydb:
+    container_name: mydb
+    environment:
+      # set environment variables and hence password etc for mysql image
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_USER=django
+      - MYSQL_PASSWORD=secret
+      - MYSQL_DATABASE=dbMarksWebsite
+    image: mysql:5.7
+    ports:
+      # Map default mysql port 3306 to 3308 on outside so that I can connect
+      # to mysql using workbench localhost with port 3308
+      - "3308:3306"
+  web:
+    container_name: web
+    environment:
+      # Set environment variables for Django project when run in
+      # container.
+      - DJANGO_DEBUG=1
+      - DOCKER_PASSWORD=secret
+      - DOCKER_USER=django
+      - DOCKER_DB=dbMarksWebsite
+      - DOCKER_HOST=mydb
+      - DOCKER_PORT=3306
+    build:
+      # Can use . when dockerfile is in the same directory, but here I have set the
+      # context directory as the parent directory (not the docker dir) and the path
+      # to the docker file
+      context: ../
+      dockerfile: ./docker/dockerfile
+      # You need to give the database a long time to start (60 seconds) and I could
+      # not get standard scripts such as wait-for to work, hence the python wait-for
+    command: >
+      sh -c "python ./scripts/wait-for.py mydb 3306 django secret dbMarksWebsite 60  &&
+             python manage.py migrate &&
+             python manage.py loaddata myprojects_testdata.json &&
+             python manage.py runserver 0.0.0.0:8080"
+    ports:
+      - "8080:8080"
+    depends_on:
+      # This does not guarantee that the db will be ready, so I used a wait-for.py
+      # script.
+      - mydb

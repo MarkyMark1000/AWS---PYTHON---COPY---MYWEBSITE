@@ -24,6 +24,9 @@ help:
 	@echo "Run:"
 	@echo "make venv-run      		- runs the script in the venv virtual environment."
 	@echo "make venv-run-debug      	- runs the script in the venv virtual environment, in debug mode"
+	@echo "Docker: (must have docker installed and running)"
+	@echo "make doc-up			- Run docker compose to raise database and website."
+	@echo "make doc-down			- DANGER - Clear the docker stack."
 	@echo "Testing:"
 	@echo "make venv-build-fixtures	- DANGER - rebuilds fixtures files from current database, which are used in tests."
 	@echo "make venv-test   		- Run the Test in the virtual environment."
@@ -46,46 +49,43 @@ venv:
 	@echo ""
 	rm -rf venv
 	@echo ""
-	virtualenv --no-site-packages -p python3 venv
+	python3.6 -m venv venv
 	@echo ""
-	( source venv/bin/activate; pip install -r requirements.txt; )
+	( source venv/bin/activate; pip3 install -r requirements.txt; )
 
 venv-static:
 	@echo ""
 	@echo "Collect the static files"
 	@echo ""
-	( source venv/bin/activate; python manage.py collectstatic --noinput; )
+	( source venv/bin/activate; python3.6 manage.py collectstatic --noinput; )
 	@echo ""
 
 venv-migrations:
 	@echo ""
 	@echo "DANGER - Make migrations file and then push it onto the database"
 	@echo ""
-	( source venv/bin/activate; python manage.py makemigrations; python manage.py migrate; )
+	( source venv/bin/activate; python3.6 manage.py makemigrations; python3.6 manage.py migrate; )
 	@echo ""
 
 venv-show-migrations:
 	@echo ""
 	@echo "Show migrations"
 	@echo ""
-	( source venv/bin/activate; python manage.py showmigrations; )
+	( source venv/bin/activate; python3.6 manage.py showmigrations; )
 	@echo ""
 
 venv-admin:
 	@echo ""
 	@echo "DANGER - Setup superuser for admin site."
 	@echo ""
-	( source venv/bin/activate; python manage.py createsuperuser; )
+	( source venv/bin/activate; python3.6 manage.py createsuperuser; )
 	@echo ""
 
 venv-docs:
 	@echo ""
 	@echo "Remove the documents and then recreate it using index.rst"
 	@echo ""
-	@echo ""
-	rm -rf ./docs/*.html
-	@echo ""
-	(source venv/bin/activate; rst2html5.py ./docs/index.rst ./docs/index.html; )
+	(rm -rf ./docs/*.html; source venv/bin/activate; rst2html5.py ./docs/index.rst ./docs/index.html; )
 	@echo ""
 
 venv-all:
@@ -107,19 +107,19 @@ venv-all:
 	@echo ""
 	( rm -rf venv; sleep 1; )
 	@echo ""
-	virtualenv --no-site-packages -p python3 venv
+	python3.6 -m venv venv
 	@echo ""
-	( source venv/bin/activate; pip install -r requirements.txt; )
+	( source venv/bin/activate; pip3 install -r requirements.txt; )
 	@echo ""
 	@echo "   Rebuild Static"
 	@echo ""
 	( rm -rf static; sleep 1; )
 	@echo ""
-	( source venv/bin/activate; python manage.py collectstatic --noinput; )
+	( source venv/bin/activate; python3.6 manage.py collectstatic --noinput; )
 	@echo ""
 	@echo "   Run Migrations"
 	@echo ""
-	( source venv/bin/activate; python manage.py makemigrations; python manage.py migrate; )
+	( source venv/bin/activate; python3.6 manage.py makemigrations; python3.6 manage.py migrate; )
 	@echo ""
 	@echo "   Build Doc's"
 	@echo ""
@@ -134,7 +134,7 @@ venv-run:
 	@echo "  (WARNING - May not work properly due to use of "
 	@echo "   ManifestStaticFilesStorage)"
 	@echo ""
-	( source venv/bin/activate; python manage.py runserver; )
+	( source venv/bin/activate; python3.6 manage.py runserver; )
 	@echo ""
 
 venv-run-debug:
@@ -142,16 +142,30 @@ venv-run-debug:
 	@echo "Running application using venv virtual environment, in debug mode"
 	@echo ""
 	@echo ""
-	( export DJANGO_DEBUG=1; source venv/bin/activate; python manage.py runserver; )
+	( export DJANGO_DEBUG=1; source venv/bin/activate; python3.6 manage.py runserver; )
+	@echo ""
+
+doc-up:
+	@echo ""
+	@echo "Run docker compose to raise the database and then the website."
+	@echo ""
+	docker-compose -f ./docker/docker-compose.yml up --build -d
+	@echo ""
+
+doc-down:
+	@echo ""
+	@echo "Clear the stack (I tend to use command lines or Desktop)."
+	@echo ""
+	docker-compose -f ./docker/docker-compose.yml down --rmi all -t 30
 	@echo ""
 
 venv-build-fixtures:
 	@echo ""
 	@echo "DANGER - rebuild fixtures files from current database (assume local/test database)"
 	@echo ""
-	( source venv/bin/activate; python manage.py dumpdata --natural-primary --natural-foreign --indent 4 --exclude=contenttypes --exclude=auth.Permission > ./apps/MyProjects/fixtures/myprojects_testdata.json; )
-	( source venv/bin/activate; python manage.py dumpdata --natural-primary --natural-foreign --indent 4 --exclude=contenttypes --exclude=auth.Permission > ./apps/Training/fixtures/training_testdata.json; )
-	( source venv/bin/activate; python manage.py dumpdata --natural-primary --natural-foreign --indent 4 --exclude=contenttypes --exclude=auth.Permission > ./apps/MySearch/fixtures/mysearch_testdata.json; )
+	( source venv/bin/activate; python3.6 manage.py dumpdata --natural-primary --natural-foreign --indent 4 --exclude=contenttypes --exclude=auth.Permission > ./apps/MyProjects/fixtures/myprojects_testdata.json; )
+	( source venv/bin/activate; python3.6 manage.py dumpdata --natural-primary --natural-foreign --indent 4 --exclude=contenttypes --exclude=auth.Permission > ./apps/Training/fixtures/training_testdata.json; )
+	( source venv/bin/activate; python3.6 manage.py dumpdata --natural-primary --natural-foreign --indent 4 --exclude=contenttypes --exclude=auth.Permission > ./apps/MySearch/fixtures/mysearch_testdata.json; )
 	@echo ""
 
 venv-test:
@@ -160,7 +174,7 @@ venv-test:
 	@echo ""
 	@echo "   to debug, you could use the --keepdb option"
 	@echo ""
-	( source venv/bin/activate; python manage.py test --noinput; )
+	( source venv/bin/activate; python3.6 manage.py test --noinput; )
 	@echo ""
 
 venv-cov-report:
@@ -181,7 +195,7 @@ pystat:
 	@echo ""
 	@echo "Code standards for ./ebdjango and ./apps"
 	@echo ""
-	( ./bin/codestyle.sh; )
+	( ./scripts/codestyle.sh; )
 	@echo ""
 	
 venv-clean:
@@ -225,5 +239,5 @@ venv-build-req:
 	@echo ""
 	rm -rf requirements.txt
 	@echo ""
-	( source venv/bin/activate; pip freeze > requirements.txt; )
+	( source venv/bin/activate; pip3 freeze > requirements.txt; )
 	@echo ""

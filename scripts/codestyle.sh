@@ -37,3 +37,10 @@ do
         echo ""
     fi
 done
+
+# Checking the scripts directory
+echo ""
+echo " *** checking Scripts directory *** "
+echo ""
+pycodestyle --statistics scripts/*.py
+echo ""
