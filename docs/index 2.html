@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MYWEBSITE - DJANGO AND AWS</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <section id="mywebsite-django-and-aws">
+        <h1>MYWEBSITE - DJANGO AND AWS</h1>
+        <section id="overview">
+            <h2>Overview</h2>
+            <p>This project is used to deploy MyWebsite on the following sites:</p>
+            <blockquote>
+                <ul>
+                    <li>Localhost - for development work</li>
+                    <li>test.markjohnwilson.net - for testing</li>
+                    <li>www.markjohnwilson.net - production</li>
+                </ul>
+            </blockquote>
+            <p>It uses a number of technologies including:</p>
+            <blockquote>
+                <ul>
+                    <li>Python's Django framework</li>
+                    <li>AWS</li>
+                    <li>HTML, CSS, Javascript</li>
+                    <li>The Bootstrap framework</li>
+                </ul>
+            </blockquote>
+            <p>The system is designed to integrate with AWS's CodePipeline with GitHub being the source.</p>
+            <p>The site was based on the Aladin template written largely using bootstrap 4. As such it may not work effectively on older browsers.</p>
+        </section>
+        <section id="installation-guide">
+            <h2>Installation Guide</h2>
+            <section id="manual-installation">
+                <h3>Manual Installation</h3>
+                <p>Installation for this project is complicated.</p>
+                <ul>
+                    <li>Firstly, for local development, a MySQL database is used with an account that has the ability to create and load data into into test databases. The settings file contains three sets of code beginning with 'DATABASES = {'. These indicate the connection requirements for the database which will need to be updated for the local database.</li>
+                    <li>There is a database connection that is used when the docker-compose scripts are initiated in the docker directory (see later).</li>
+                    <li>In addition to this, when the application is run within AWS it is assumed that two elasticbeanstalk environments exist with the following characteristics:</li>
+                    <li>
+                        <dl>
+                            <dt>Test Environment:</dt>
+                            <dd>
+                                <ul>
+                                    <li>Currently an Application Load Balancer is used, but this may be changed in the future due to cost considerations.</li>
+                                    <li>WSGIPath is set to ebdjango/wsgi.py</li>
+                                    <li>Static Files are set so that /static/ is equal to static/</li>
+                                    <li>
+                                        <dl>
+                                            <dt>The following environment variables are set:</dt>
+                                            <dd>
+                                                <ul>
+                                                    <li>DJANGO_SETTINGS_MODULE is set to ebdjango.settings</li>
+                                                    <li>EnvType is set to test</li>
+                                                </ul>
+                                            </dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <dl>
+                                            <dt>A MySQL database needs to exist and the connection details are stored in AWS Parameter Store under the following paths:</dt>
+                                            <dd>
+                                                <ul>
+                                                    <li>/MarksWebsite/test/DBHOST, /MarksWebsite/test/DBPORT, /MarksWebsite/test/DBPWD, /MarksWebsite/test/DBUser</li>
+                                                </ul>
+                                            </dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <dl>
+                                            <dt>The following record exists in the Parameter Store and is used for Unit Testing:</dt>
+                                            <dd>
+                                                <ul>
+                                                    <li>/MarksWebsite/test/PARAMSTORE_TEST with value 'SUCCESS'</li>
+                                                </ul>
+                                            </dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <dl>
+                                            <dt>The remaining records also need to exist in the parameter store and are used to store things such as Django's secret key:</dt>
+                                            <dd>
+                                                <ul>
+                                                    <li>/MarksWebsite/test/SecretKey</li>
+                                                </ul>
+                                            </dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li>
+                        <dl>
+                            <dt>Production Environment:</dt>
+                            <dd>
+                                <ul>
+                                    <li>Currently an Application Load Balancer is used, but this may be changed in the future due to cost considerations.</li>
+                                    <li>WSGIPath is set to ebdjango/wsgi.py</li>
+                                    <li>Static Files are set so that /static/ is equal to static/</li>
+                                    <li>
+                                        <dl>
+                                            <dt>The following environment variables are set:</dt>
+                                            <dd>
+                                                <ul>
+                                                    <li>DJANGO_SETTINGS_MODULE is set to ebdjango.settings</li>
+                                                    <li>EnvType is set to prod</li>
+                                                </ul>
+                                            </dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <dl>
+                                            <dt>A MySQL database needs to exist and the connection details are stored in AWS Parameter Store under the following paths:</dt>
+                                            <dd>
+                                                <ul>
+                                                    <li>/MarksWebsite/prod/DBHOST, /MarksWebsite/prod/DBPORT, /MarksWebsite/prod/DBPWD, /MarksWebsite/prod/DBUser</li>
+                                                </ul>
+                                            </dd>
+                                        </dl>
+                                    </li>
+                                    <li>
+                                        <dl>
+                                            <dt>The remaining records also need to exist in the parameter store and are used to store things such as Django's secret key:</dt>
+                                            <dd>
+                                                <ul>
+                                                    <li>/MarksWebsite/prod/SecretKey</li>
+                                                </ul>
+                                            </dd>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
+            </section>
+            <section id="makefile-mac-possibly-linux">
+                <h3>MakeFile - Mac (possibly linux)</h3>
+                <p>A makefile exists in core directory where the manage.py file exists and this may make using this code easier. I would normally test the scripts on Linux and create a batch file for windows, but I didn't want to install another 2 MySQL databases on my computer (I have Windows and Ubuntu running on parallels). As such this makefile has only been tested on a mac, it MAY work on linux and I have not provided an equivalent for Windows.</p>
+                <p>Typical commands include:</p>
+                <ul>
+                    <li>make - this prints out the help for this makefile.</li>
+                    <li>Setup:</li>
+                    <li>make venv - this deletes and recreates the venv virtual environment from requirements.txt</li>
+                    <li>make venv-static - collect static files</li>
+                    <li>make venv-migrations - DANGER - this makes the migration file and creates/pushes it onto the database.</li>
+                    <li>make venv-show-migrations - Show migrations</li>
+                    <li>make venv-admin - DANGER - this can be used to setup an admin password for the admin site.</li>
+                    <li>make venv-docs - delete and re-creates the html file in the docs directory using index.rst file</li>
+                    <li>make venv-all - delete and re-creates the virtual env, static files, migrations and docs</li>
+                    <li>Run:</li>
+                    <li>make venv-run - runs the script in the venv virtual environment (may not work well due to ManifestStaticFilesStorage).</li>
+                    <li>make venv-run-debug - runs the script in the venv virtual environment, in debug mode</li>
+                    <li>Docker: (must have docker installed and running)</li>
+                    <li>make doc-up - Run docker compose to raise database and website.</li>
+                    <li>make doc-down - DANGER - Clear the docker stack.</li>
+                    <li>make doc-test-up - Run docker compose to raise database and website.</li>
+                    <li>make doc-test-down - DANGER - Clear the docker stack.</li>
+                    <li>Testing:</li>
+                    <li>make venv-build-fixtures - DANGER - rebuilds fixtures files from current database, which are used in tests.</li>
+                    <li>make venv-test - Run the Test in the virtual environment.</li>
+                    <li>make venv-cov-report - Run the Test in the virtual environment using coverage and then display coverage report</li>
+                    <li>make venv-cov-html - Run the Test in the virtual environment using coverage and build an html report</li>
+                    <li>Code Standard:"</li>
+                    <li>make pystat - Code standards for ebdjango and apps directories.</li>
+                    <li>Clean:</li>
+                    <li>make venv-clean - Remove __pycache__ etc</li>
+                    <li>make clean-venv - Remove venv virtual environment.</li>
+                    <li>make clean-static - Remove static from core directory.</li>
+                    <li>make clean-cov - Remove coverage from core directory.</li>
+                    <li>Distribution:</li>
+                    <li>make venv-build-req - Rebuilds the requirements file from the venv virtual environment.</li>
+                </ul>
+            </section>
+        </section>
+        <section id="notes-about-docker">
+            <h2>NOTES ABOUT DOCKER</h2>
+            <p>Two docker-compose scripts and one dockerfile have been provided in the docker directory which can be used to try the system out in an independent manner. However some familiarity with docker will be required as there is a risk that docker containers and images could be left on your system. In addition to this, some characteristics exist on AWS and there may be issues with Docker connecting to the internet. This may stop some features and tests working on the app, such as the contactme section.</p>
+            <ul>
+                <li><a href="https://github.com/docker/for-mac/issues/931">https://github.com/docker/for-mac/issues/931</a></li>
+            </ul>
+            <p>When doc-up has been run, it creates a MySQL database image and then waits for this to be ready. This normally takes less than 60 seconds to initiate. Once initiated, the site can be seen on localhost:8080</p>
+            <p>The docker-compose files use a number of environment variables to connect to the database, these include:</p>
+            <ul>
+                <li>DOCKER_PASSWORD</li>
+                <li>DOCKER_USER</li>
+                <li>DOCKER_DB</li>
+                <li>DOCKER_HOST</li>
+                <li>DOCKER_PORT</li>
+            </ul>
+        </section>
+    </section>
+</body>
+</html>
