@@ -47,11 +47,8 @@ venv:
 	@echo ""
 	@echo "Remove the venv virtual environment and then re-create it. using the requirements.txt file."
 	@echo ""
-	rm -rf venv
 	@echo ""
-	python3.6 -m venv venv
-	@echo ""
-	( source venv/bin/activate; pip3 install -r requirements.txt; )
+	( rm -rf venv; python3.6 -m venv venv; source venv/bin/activate; pip3 install -r requirements.txt; )
 
 venv-static:
 	@echo ""
@@ -115,17 +112,15 @@ venv-all:
 	@echo ""
 	( rm -rf static; sleep 1; )
 	@echo ""
-	( source venv/bin/activate; python3.6 manage.py collectstatic --noinput; )
+	( source venv/bin/activate; python3.6 manage.py collectstatic --noinput; sleep 1;)
 	@echo ""
 	@echo "   Run Migrations"
 	@echo ""
-	( source venv/bin/activate; python3.6 manage.py makemigrations; python3.6 manage.py migrate; )
+	( source venv/bin/activate; python3.6 manage.py makemigrations; python3.6 manage.py migrate; sleep 1;)
 	@echo ""
 	@echo "   Build Doc's"
 	@echo ""
-	( rm -rf ./docs/*.html; sleep 1;)
-	@echo ""
-	(source venv/bin/activate; rst2html5.py ./docs/index.rst ./docs/index.html; )
+	(rm -rf ./docs/*.html; source venv/bin/activate; rst2html5.py ./docs/index.rst ./docs/index.html; )
 	@echo ""
 
 venv-run:

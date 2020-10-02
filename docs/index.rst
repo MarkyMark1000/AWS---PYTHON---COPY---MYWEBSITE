@@ -5,10 +5,7 @@ MYWEBSITE - DJANGO AND AWS
 Overview
 ========
 
-This is a copy of a Django website.   Some of the code has been adjusted to change secret keys to 
-comments such as 'blahdeblahdeblah'.
-
-The project is used to deploy MyWebsite on the following sites:
+This project is used to deploy MyWebsite on the following sites:
 
     - Localhost - for development work
     - test.markjohnwilson.net - for testing
@@ -23,8 +20,8 @@ It uses a number of technologies including:
 
 The system is designed to integrate with AWS's CodePipeline with GitHub being the source.
 
-The site was based on the Aladin template written largely using bootstrap 4, but has been adjusted extensively.   As such it
-may not work effectively on older browsers.
+The site was based on the Aladin template written largely using bootstrap 4.   As such it may not work
+effectively on older browsers.
 
 Installation Guide
 ==================
@@ -46,8 +43,7 @@ Installation for this project is complicated.
   environments exist with the following characteristics:
 
 -  Test Environment:
-    - Originally an EB environment with an Application Load Balancer was used, but this was expensive so the project was changed to
-      support a single instance, which is inferior, but less expensive.
+    - Currently an Application Load Balancer is used, but this may be changed in the future due to cost considerations.
     - WSGIPath is set to ebdjango/wsgi.py
     - Static Files are set so that /static/ is equal to static/
     - The following environment variables are set:
@@ -62,8 +58,7 @@ Installation for this project is complicated.
 
 
 -  Production Environment:
-    - Originally an EB environment with an Application Load Balancer was used, but this was expensive so the project was changed to
-      support a single instance, which is inferior, but less expensive.
+    - Currently an Application Load Balancer is used, but this may be changed in the future due to cost considerations.
     - WSGIPath is set to ebdjango/wsgi.py
     - Static Files are set so that /static/ is equal to static/
     - The following environment variables are set:
@@ -124,7 +119,7 @@ NOTES ABOUT DOCKER
 
 Two docker-compose scripts and one dockerfile have been provided in the docker directory which can be used to try the system out
 in an independent manner.   However some familiarity with docker will be required as there is a risk that docker containers and
-images could be left on your system.   In addition to this, some code characteristics interface with AWS and there may be issues with Docker
+images could be left on your system.   In addition to this, some characteristics exist on AWS and there may be issues with Docker
 connecting to the internet.   This may stop some features and tests working on the app, such as the contactme section.
 
 - https://github.com/docker/for-mac/issues/931

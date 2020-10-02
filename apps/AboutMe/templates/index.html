@@ -24,7 +24,7 @@
         */
         
         .back_image_paral{
-            background-image: url("{% static 'AboutMe/img/background_6.jpg' %}");
+            background-image: url("{% static 'AboutMe/img/background.jpg' %}");
         }
         
     </style>
@@ -33,7 +33,7 @@
 
 {% block main %}
 
-    <div class="p-container">
+    <div class="p-container" id="idAboutIndex">
         <section>
             <div class="image back_image_paral bg_scroll" data-type="background" data-speed="2"></div>
             <div class="stuff" data-type="content" data-speed="100"><h1>About Me</h1></div>
@@ -52,9 +52,8 @@
                         <div class="row">
                             <!--Description-->
                             <div class="col-sm-12 pt-1 pb-1">
-                                <p>I am <strong>Mark Wilson</strong>.   I have many years of experience working with VBA within the finance industry. Following 
-                                a career break to look after 3 young children, I am very keen to return to the Job Market and expand on my 
-                                previous programming experience.   Ideally I would like to gain more exposure to fully object orientated programming languages such as Python or C++.
+                                <p>I am <strong>Mark Wilson</strong>, a programmer looking for opportunities using Python, AWS, VBA or C++.   To view 
+                                some of my recent work please click the projects menu above.</p>
                                 </p>
                             </div>
                         </div>
@@ -154,7 +153,7 @@
                         <div class="timeline-event-point"></div>
                         <div class="timeline-event-date">Sep 2002 - Sep 2003</div>
                         <div class="timeline-event-content  wow fadeIn">
-                            <div class="timeline-event-title">MSc in Mathematical Tradign and Finance</div>
+                            <div class="timeline-event-title">MSc in Mathematical Trading and Finance</div>
                             <p class="timeline-event-caption">City University</p>
                             <p>Mark studied and passed exams on many different financial topics relevant to trading, including option theory, basic stochastic calculus, the use of binomial trees and risk analysis techniques such as VaR. He wrote a dissertation on the Libor Market model using an XLL he wrote in C++. As a result of his efforts he obtained a distinction from City University. During this time he also helped setup an online retail business using ASP, HTML and CSS.</p>
                         </div>
@@ -166,7 +165,7 @@
                         <div class="timeline-event-content  wow fadeIn">
                             <div class="timeline-event-title">MSci in Physics</div>
                             <p class="timeline-event-caption">Imperial College, London</p>
-                            <p>Mark spent a number of years studying for an MSc in Physics at Imperial College.   He left in 1997 with a 2:1 and went on to join the Robert Fleming graduate training program.</p>
+                            <p>Mark spent a number of years studying for an MSci in Physics at Imperial College.   He left in 1997 with a 2:1 and went on to join the Robert Fleming graduate training program.</p>
                         </div>
                     </div>
                     </div>

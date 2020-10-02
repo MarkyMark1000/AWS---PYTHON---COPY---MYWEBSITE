@@ -47,7 +47,7 @@ if len(AWS_ENV_TYPE) > 0:
     SECRET_KEY = AWSPStore.get_parameter('SecretKey', True)
 else:
     # Use default SECRET_KEY for local computer
-    SECRET_KEY = 'blahdeblahdeblah'
+    SECRET_KEY = 'addlocalsecretkeyhere'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get('DJANGO_DEBUG', False))
@@ -65,12 +65,16 @@ if len(AWS_ENV_TYPE) > 0:
                                                     True)
 else:
     # (google recommends seperate localhost/127.0.0.1 keys)
-    G_RECAPTCHA_SITEKEY = 'blahdeblahdeblah'
-    G_RECAPTCHA_SECRETKEY = 'blahdeblahdeblah'
+    G_RECAPTCHA_SITEKEY = 'ADDGOOGLESITEKEYHERE'
+    G_RECAPTCHA_SECRETKEY = 'ADDGOOGLESECRETKEYHERE'
 
 
-ALLOWED_HOSTS = ['localhost',
-                 '0.0.0.0',
+ALLOWED_HOSTS = ['markswebsite-prod.eu-west-2.elasticbeanstalk.com',
+                 'markswebsite-test.eu-west-2.elasticbeanstalk.com',
+                 'test.markjohnwilson.net',
+                 'markjohnwilson.net',
+                 'www.markjohnwilson.net',
+                 'localhost',
                  '127.0.0.1']
 
 # Append EC2 IP to ALLOWED_HOSTS, necessary for health check to work.
@@ -177,7 +181,7 @@ else:
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'dbMarksWebsite',
             'USER': 'root',
-            'PASSWORD': 'blahdeblahdeblah',
+            'PASSWORD': '2ttahbfa',
             'HOST': 'localhost',
             'PORT': '3306',
         }
